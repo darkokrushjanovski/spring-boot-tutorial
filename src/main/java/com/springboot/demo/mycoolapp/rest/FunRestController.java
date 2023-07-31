@@ -1,24 +1,27 @@
 package com.springboot.demo.mycoolapp.rest;
 
-import com.springboot.demo.mycoolapp.common.Coach;
+import com.springboot.demo.mycoolapp.common.Students;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
+@RequestMapping("/api")
 public class FunRestController {
-    private Coach myCoach;
 
-    @Autowired
-    public FunRestController(@Qualifier("cricketCoach")Coach myCoach) {
-        System.out.println("In constructor: " + getClass().getSimpleName());
-        this.myCoach = myCoach;
+
+    @GetMapping("/students")
+    public List<Students> getDailyWorkout() {
+        List<Students> students = new ArrayList<>();
+
+        students.add(new Students("Johny","Cash"));
+        students.add(new Students("Terry","Brown"));
+        students.add(new Students("Jack","Black"));
+        return students;
     }
-
-    @GetMapping("/dailyWorkout")
-    public String getDailyWorkout() {
-        return myCoach.getDailyWorkout();
-    }
-
 }
